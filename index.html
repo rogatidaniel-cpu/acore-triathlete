@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="TriPulse">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚴</text></svg>">
-  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRyaVB1bHNlOiBUcmlhdGhsb24gVHJhY2tlciIsCiAgInNob3J0X25hbWUiOiAiVHJpUHVsc2UiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBiMGIwZiIsCiAgInRoZW1lX2NvbG9yIjogIiMwMGU1ZmYiLAogICJpY29ucyI6IFt7InNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48dGV4dCB5PScuOWVtJyBmb250LXNpemU9JzkwJz7wn5Ol8J+UpDwvdGV4dD48L3N2Zz4iLCAic2l6ZXMiOiAiYW55IiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XQp9">
-  <title>TriPulse: Triathlon Tracker</title>
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRyaVB1bHNlOiBCaWxhbmd1YWwgVHJpYXRobG9uIFRyYWNrZXIiLAogICJzaG9ydF9uYW1lIjogIlRyaVB1bHNlIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYjBiMGYiLAogICJ0aGVtZV9jb2xvciI6ICIjMDBlNWZmIiwKICAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHRleHQgeT0nLjllbScgZm9udC1zaXplPSc5MCc+8J+Ol8J+UpDwvdGV4dD48L3N2Zz4iLCAic2l6ZXMiOiAiYW55IiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XQp9">
+  <title>TriPulse: Premium Triathlon Tracker</title>
   <style>
     :root {
       --bg: #0b0b0f; --card: #14141a; --border: #2a2a35; --text: #f2f2f5; --muted: #8a8a9a;
@@ -21,8 +21,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
     
-    header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, #0f0f14, transparent); border-bottom: 1px solid var(--border); }
-    header h1 { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
+    header { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, #0f0f14, transparent); border-bottom: 1px solid var(--border); }
+    .brand-container { display: flex; align-items: center; gap: 8px; }
+    .brand-logo { width: 28px; height: 28px; }
+    header h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.5px; background: linear-gradient(135deg, #ffffff, #8a8a9a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .header-actions { display: flex; gap: 6px; align-items: center; }
     .icon-btn { background: var(--card); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); transition: 0.2s; font-size: 0.9rem; }
     .icon-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
@@ -111,6 +113,10 @@
     .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--card); color: var(--text); padding: 8px 12px; border-radius: 8px; box-shadow: var(--shadow); border: 1px solid var(--accent); z-index: 9999; transition: 0.3s; font-size: 0.8rem; pointer-events: none; }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
+    .phase-selector { display: flex; gap: 4px; margin-bottom: 12px; }
+    .phase-btn { flex: 1; padding: 8px; background: #1a1a22; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .phase-btn.active { color: #000; border-color: var(--accent); background: var(--accent); }
+
     footer { text-align: center; padding: 6px; color: var(--muted); font-size: 0.65rem; margin-top: auto; }
 
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 9998; opacity: 0; pointer-events: none; transition: 0.3s; }
@@ -126,12 +132,54 @@
     .zone-legend div { flex: 1; padding: 6px; border-radius: 4px; text-align: center; font-size: 0.75rem; }
     .help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.8rem; margin-bottom: 10px; }
     .help-card { background: #1a1a22; padding: 8px; border-radius: 6px; }
+    
+    .lang-switcher {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .lang-switcher:hover {
+      border-color: var(--accent);
+      background: rgba(0, 229, 255, 0.1);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>🏊‍♂️‍♂️🏃‍♂️ TriPulse</h1>
+    <!-- Embedded high-performance, responsive vector logo replacing generic emojis -->
+    <div class="brand-container">
+      <svg class="brand-logo" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 65 15 L 125 110 C 128 115, 122 120, 115 120 L 5 120 C -2 120, -7 115, -4 110 Z" 
+              fill="none" 
+              stroke="url(#cyberHeaderGrad)" 
+              stroke-width="10" 
+              stroke-linejoin="round" 
+              stroke-linecap="round" />
+        <path d="M 12 75 H 35 L 43 90 L 58 20 L 72 105 L 82 65 L 90 75 H 110" 
+              fill="none" 
+              stroke="#ffffff" 
+              stroke-width="9" 
+              stroke-linejoin="round" 
+              stroke-linecap="round" />
+        <circle cx="110" cy="75" r="6" fill="#00e676" />
+        <defs>
+          <linearGradient id="cyberHeaderGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00e5ff" />
+            <stop offset="100%" stop-color="#00e676" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <h1 id="appTitle">TriPulse</h1>
+    </div>
     <div class="header-actions">
+      <!-- Language Switcher Button -->
+      <button class="lang-switcher" id="langSwitchBtn" onclick="toggleLanguage()">🇮🇹 IT</button>
       <button class="icon-btn" onclick="showHelp()" title="Help & Legend">❓</button>
       <div class="ble-status" id="bleDot" title="Bluetooth Status"></div>
       <button class="icon-btn" onclick="connectBLE()" title="Connect Sensor">🔗</button>
@@ -140,46 +188,46 @@
   </header>
 
   <nav>
-    <button class="active" onclick="showTab('tracker')">
+    <button class="active" onclick="showTab('tracker')" id="navTrackerBtn">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-      Tracker
+      <span id="navTracker">Tracker</span>
     </button>
-    <button onclick="showTab('plans')">
+    <button onclick="showTab('plans')" id="navPlansBtn">
       <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-      Plans
+      <span id="navPlans">Piani</span>
     </button>
-    <button onclick="showTab('races')">
+    <button onclick="showTab('races')" id="navRacesBtn">
       <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-      Races
+      <span id="navRaces">Gare</span>
     </button>
-    <button onclick="showTab('history')">
+    <button onclick="showTab('history')" id="navHistoryBtn">
       <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-      History
+      <span id="navHistory">Storico</span>
     </button>
   </nav>
 
   <main>
     <section id="tab-tracker" class="tab active">
       <div class="sport-grid">
-        <div class="sport-btn selected" onclick="selectSport('swim')"><span>🏊</span><small>Swim</small></div>
-        <div class="sport-btn" onclick="selectSport('bike')"><span>🚴</span><small>Bike</small></div>
-        <div class="sport-btn" onclick="selectSport('run')"><span>🏃</span><small>Run</small></div>
+        <div class="sport-btn selected" onclick="selectSport('swim')"><span>🏊</span><small id="sportSwim">Swim</small></div>
+        <div class="sport-btn" onclick="selectSport('bike')"><span>🚴</span><small id="sportBike">Bike</small></div>
+        <div class="sport-btn" onclick="selectSport('run')"><span>🏃</span><small id="sportRun">Run</small></div>
       </div>
       <div class="card">
         <div class="timer-display" id="timer">00:00:00</div>
-        <div class="sub-timer" id="movingTime">Moving: 00:00:00</div>
+        <div class="sub-timer" id="movingTime">Tempo Attivo: 00:00:00</div>
         <div class="zone-bar" id="zoneBar"><div></div><div></div><div></div><div></div><div></div></div>
         <div class="metrics-row">
-          <div class="metric-box"><label>📍 Distance</label><value id="dist">0.000</value></div>
-          <div class="metric-box"><label>🏃 Pace</label><value id="pace">--:--</value></div>
-          <div class="metric-box"><label>🔥 TSS</label><value id="tss">0</value></div>
-          <div class="metric-box"><label>❤️ BPM</label><value id="bpm">--</value></div>
-          <div class="metric-box"><label>🔄 RPM</label><value id="rpm">--</value></div>
-          <div class="metric-box"><label>⚡ W</label><value id="watt">--</value></div>
+          <div class="metric-box"><label id="lblDist">📍 Distanza</label><value id="dist">0.000 km</value></div>
+          <div class="metric-box"><label id="lblPace">🏃 Passo</label><value id="pace">--:--</value></div>
+          <div class="metric-box"><label id="lblTss">🔥 TSS</label><value id="tss">0</value></div>
+          <div class="metric-box"><label id="lblBpm">❤️ BPM</label><value id="bpm">--</value></div>
+          <div class="metric-box"><label id="lblRpm">🔄 RPM</label><value id="rpm">--</value></div>
+          <div class="metric-box"><label id="lblWatt">⚡ Watt</label><value id="watt">--</value></div>
         </div>
         <canvas id="mapCanvas"></canvas>
         <div class="toggle-row">
-          <span>Smart Auto-Pause</span>
+          <span id="lblAutoPause">Smart Auto-Pause</span>
           <div class="toggle-switch on" id="autoPauseToggle" onclick="toggleAutoPause()"></div>
         </div>
         <div class="btn-row">
@@ -187,24 +235,24 @@
           <button class="btn btn-lap" id="btnLap" onclick="addLap()" disabled>🏁 LAP</button>
         </div>
         <div class="btn-row">
-          <button class="btn btn-finish" id="btnFinish" onclick="finishWorkout()" disabled>✅ FINISH</button>
-          <button class="btn btn-reset" onclick="resetTimer()">↻ RESET</button>
+          <button class="btn btn-finish" id="btnFinish" onclick="finishWorkout()" disabled>✅ FINE</button>
+          <button class="btn btn-reset" id="btnReset" onclick="resetTimer()">↻ RESET</button>
         </div>
       </div>
       <div class="card" id="lapCard" style="display:none;">
-        <h3>📊 Splits</h3>
+        <h3 id="lblSplits">📊 Parziali</h3>
         <div class="lap-list" id="lapList"></div>
       </div>
     </section>
 
     <section id="tab-plans" class="tab">
       <div class="card">
-        <h3>📅 Periodized Plan</h3>
+        <h3 id="lblPeriodizedPlan">📅 Piano Periodizzato</h3>
         <div class="phase-selector" id="phaseSelector">
-          <button class="phase-btn active" onclick="setPhase('base')">🟢 Base</button>
-          <button class="phase-btn" onclick="setPhase('build')">🟡 Build</button>
-          <button class="phase-btn" onclick="setPhase('peak')">🔴 Peak</button>
-          <button class="phase-btn" onclick="setPhase('taper')">⬜ Taper</button>
+          <button class="phase-btn active" onclick="setPhase('base')" id="btnPhaseBase">🟢 Base</button>
+          <button class="phase-btn" onclick="setPhase('build')" id="btnPhaseBuild">🟡 Costruzione</button>
+          <button class="phase-btn" onclick="setPhase('peak')" id="btnPhasePeak">🔴 Picco</button>
+          <button class="phase-btn" onclick="setPhase('taper')" id="btnPhaseTaper">⬜ Rifinitura</button>
         </div>
         <ul class="workout-list" id="workoutList" style="list-style:none;"></ul>
       </div>
@@ -212,80 +260,278 @@
 
     <section id="tab-races" class="tab">
       <div class="card">
-        <h3>🏁 New Race</h3>
-        <div class="form-group"><label>Race Name</label><input type="text" id="raceName" placeholder="e.g. Ironman 70.3 World Championship"></div>
-        <div class="form-group"><label>Date</label><input type="date" id="raceDate"></div>
-        <div class="form-group"><label>Distance</label>
+        <h3 id="lblNewRace">🏁 Nuova Gara</h3>
+        <div class="form-group"><label id="lblRaceName">Nome della Gara</label><input type="text" id="raceName" placeholder="Es. Ironman 70.3 Cervia"></div>
+        <div class="form-group"><label id="lblRaceDate">Data</label><input type="date" id="raceDate"></div>
+        <div class="form-group"><label id="lblRaceDistance">Distanza</label>
           <select id="raceType">
             <option value="sprint">🟢 Sprint</option>
-            <option value="olympic">🔵 Olympic</option>
-            <option value="70.3" selected>🟡 70.3 / Half</option>
-            <option value="im">🔴 Ironman / Full</option>
+            <option value="olympic">🔵 Olimpico</option>
+            <option value="70.3" selected>🟡 70.3 / Medio</option>
+            <option value="im">🔴 Ironman / Lungo</option>
           </select>
         </div>
-        <button class="btn btn-start" onclick="addRace()">➕ Add Race</button>
+        <button class="btn btn-start" onclick="addRace()" id="btnAddRaceBtn">➕ Aggiungi Gara</button>
       </div>
       <div id="raceList"></div>
     </section>
 
     <section id="tab-history" class="tab">
       <div class="card">
-        <h3>📜 Workout History</h3>
-        <div id="historyList"><small style="color:var(--muted);">No sessions yet.</small></div>
+        <h3 id="lblWorkoutHistory">📜 Storico Allenamenti</h3>
+        <div id="historyList"><small style="color:var(--muted);" id="lblNoSessions">Nessuna sessione registrata.</small></div>
       </div>
     </section>
   </main>
 
   <div class="modal-overlay" id="helpModal">
     <div class="modal">
-      <h2>📖 Quick Guide & Legend</h2>
-      <h3>📊 Key Metrics</h3>
+      <h2 id="lblModalTitle">📖 Guida Rapida & Legenda</h2>
+      <h3 id="lblModalMetrics">📊 Metriche Chiave</h3>
       <div class="help-grid">
-        <div class="help-card"><strong>📍 Distance</strong><br><small style="color:var(--muted)">GPS tracked km</small></div>
-        <div class="help-card"><strong>🏃 Pace</strong><br><small style="color:var(--muted)">Min/km</small></div>
-        <div class="help-card"><strong> TSS</strong><br><small style="color:var(--muted)">Training Stress Score</small></div>
-        <div class="help-card"><strong>❤️ BPM</strong><br><small style="color:var(--muted)">Heart rate (BLE)</small></div>
-        <div class="help-card"><strong>🔄 RPM</strong><br><small style="color:var(--muted)">Cadence</small></div>
-        <div class="help-card"><strong>⚡ Watts</strong><br><small style="color:var(--muted)">Power output</small></div>
+        <div class="help-card"><strong id="helpDist">📍 Distanza</strong><br><small style="color:var(--muted)" id="helpDistSub">km tracciati tramite GPS</small></div>
+        <div class="help-card"><strong id="helpPace">🏃 Passo</strong><br><small style="color:var(--muted)" id="helpPaceSub">Min/km</small></div>
+        <div class="help-card"><strong>🔥 TSS</strong><br><small style="color:var(--muted)" id="helpTssSub">Training Stress Score</small></div>
+        <div class="help-card"><strong id="helpBpm">❤️ BPM</strong><br><small style="color:var(--muted)" id="helpBpmSub">Battito cardiaco (BLE)</small></div>
+        <div class="help-card"><strong id="helpRpm">🔄 RPM</strong><br><small style="color:var(--muted)" id="helpRpmSub">Cadenza</small></div>
+        <div class="help-card"><strong id="helpWatt">⚡ Watt</strong><br><small style="color:var(--muted)" id="helpWattSub">Potenza espressa</small></div>
       </div>
-      <h3>🎯 Training Zones</h3>
+      <h3 id="lblModalZones">🎯 Zone di Allenamento</h3>
       <div class="zone-legend">
-        <div style="background:var(--z1)"><strong>Z1</strong><br>Rec</div>
-        <div style="background:var(--z2)"><strong>Z2</strong><br>End</div>
-        <div style="background:var(--z3);color:#000"><strong>Z3</strong><br>Tempo</div>
-        <div style="background:var(--z4);color:#000"><strong>Z4</strong><br>Thresh</div>
-        <div style="background:var(--z5)"><strong>Z5</strong><br>Max</div>
+        <div style="background:var(--z1)"><strong>Z1</strong><br><span id="z1Lbl">Rig</span></div>
+        <div style="background:var(--z2)"><strong>Z2</strong><br><span id="z2Lbl">Res</span></div>
+        <div style="background:var(--z3);color:#000"><strong>Z3</strong><br><span id="z3Lbl">Medio</span></div>
+        <div style="background:var(--z4);color:#000"><strong>Z4</strong><br><span id="z4Lbl">Soglia</span></div>
+        <div style="background:var(--z5)"><strong>Z5</strong><br><span id="z5Lbl">Max</span></div>
       </div>
-      <h3>⚙️ Functions</h3>
-      <ul>
-        <li><strong>▶ START</strong>: Begin tracking</li>
-        <li><strong>🏁 LAP</strong>: Record split</li>
-        <li><strong>✅ FINISH</strong>: Save to history</li>
-        <li><strong>Auto-Pause</strong>: Pauses when stopped</li>
-        <li><strong>🔗 BLE</strong>: Connect sensors (Chrome)</li>
+      <h3 id="lblModalFunctions">⚙️ Funzionalità</h3>
+      <ul id="helpFuncList">
+        <li><strong>▶ START</strong>: Avvia la sessione</li>
+        <li><strong>🏁 LAP</strong>: Salva un intervallo</li>
+        <li><strong>✅ FINE</strong>: Archivia nel database</li>
+        <li><strong>Auto-Pause</strong>: Sospende se l'atleta si ferma</li>
+        <li><strong>🔗 BLE</strong>: Sensori Bluetooth integrati</li>
       </ul>
-      <div class="tip-box"><strong>💡 Tips:</strong> Keep screen on. Wait 10s for GPS lock. Add to Home Screen for app mode.</div>
-      <button class="btn btn-start" onclick="closeHelp()" style="width:100%">✅ Got it!</button>
+      <div class="tip-box"><strong id="helpTips">💡 Suggerimenti:</strong> Tieni acceso lo schermo. Attendi aggancio GPS all'aperto. Aggiungi alla Home per abilitare la modalità app nativa.</div>
+      <button class="btn btn-start" onclick="closeHelp()" style="width:100%" id="btnModalClose">✅ Ricevuto!</button>
       <label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:0.8rem;color:var(--muted);cursor:pointer;">
-        <input type="checkbox" id="dontShowAgain" style="accent-color:var(--accent)"> Don't show again
+        <input type="checkbox" id="dontShowAgain" style="accent-color:var(--accent)"> <span id="lblDontShowAgain">Non mostrare più</span>
       </label>
     </div>
   </div>
 
-  <div class="toast" id="toast">✅ Saved</div>
-  <footer>TriPulse v1.0 • PWA Ready • Offline First</footer>
+  <div class="toast" id="toast">✅ Salvato</div>
+  <footer id="footerText">TriPulse v1.1 • PWA Ready • Localizzazione Dinamica • GPS Shield Actived</footer>
 
   <script>
-    const STORAGE = 'tripulse_v1';
+    // i18n Dictionary Definition (100% complete) - Removed emojis from main app title
+    const i18n = {
+      it: {
+        appTitle: "TriPulse",
+        langSwitchBtn: "🇬🇧 EN",
+        navTracker: "Tracker",
+        navPlans: "Piani",
+        navRaces: "Gare",
+        navHistory: "Storico",
+        sportSwim: "Nuoto",
+        sportBike: "Bici",
+        sportRun: "Corsa",
+        lblDist: "📍 Distanza",
+        lblPace: "🏃 Passo",
+        lblTss: "🔥 TSS",
+        lblBpm: "❤️ BPM",
+        lblRpm: "🔄 RPM",
+        lblWatt: "⚡ Watt",
+        lblAutoPause: "Smart Auto-Pause",
+        lblSplits: "📊 Parziali",
+        lblPeriodizedPlan: "📅 Piano Periodizzato",
+        lblNewRace: "🏁 Nuova Gara",
+        lblRaceName: "Nome della Gara",
+        lblRaceDate: "Data",
+        lblRaceDistance: "Distanza",
+        btnAddRaceBtn: "➕ Aggiungi Gara",
+        lblWorkoutHistory: "📜 Storico Allenamenti",
+        lblNoSessions: "Nessuna sessione registrata.",
+        lblModalTitle: "📖 Guida Rapida & Legenda",
+        lblModalMetrics: "📊 Metriche Chiave",
+        helpDist: "📍 Distanza",
+        helpDistSub: "km tracciati tramite GPS",
+        helpPace: "🏃 Passo",
+        helpPaceSub: "Min/km",
+        helpBpm: "❤️ BPM",
+        helpBpmSub: "Battito cardiaco (BLE)",
+        helpRpm: "🔄 RPM",
+        helpRpmSub: "Cadenza pedalata",
+        helpWatt: "⚡ Watt",
+        helpWattSub: "Potenza espressa",
+        lblModalZones: "🎯 Zone di Allenamento",
+        z1Lbl: "Rig",
+        z2Lbl: "Res",
+        z3Lbl: "Medio",
+        z4Lbl: "Soglia",
+        z5Lbl: "Max",
+        lblDontShowAgain: "Non mostrare più",
+        btnModalClose: "✅ Ricevuto!",
+        lblModalFunctions: "⚙️ Funzionalità",
+        helpTips: "💡 Suggerimenti:",
+        btnPhaseBase: "🟢 Base",
+        btnPhaseBuild: "🟡 Costruzione",
+        btnPhasePeak: "🔴 Picco",
+        btnPhaseTaper: "⬜ Rifinitura",
+        toastSaved: "✅ Salvato",
+        toastDeleted: "🗑 Eliminato",
+        toastExported: "📤 Esportato",
+        toastBleConnected: " Connected!",
+        toastBleDisconnected: "📴 Disconnesso",
+        toastBleUnsupported: "⚠️ Web Bluetooth non supportato su questo browser",
+        toastBleFailed: "❌ Connessione fallita",
+        toastFillFields: "⚠️ Compila nome e data della gara!",
+        toastAutoPaused: "⏸ Auto-Pausa",
+        toastResumed: "▶ Ripreso",
+        toastLapSaved: "🏁 Parziale salvato",
+        lblNoRaces: "Nessuna gara pianificata.",
+        countdownDays: "⏳ manca a",
+        countdownRaceDay: "🏆 GIORNO DI GARA!",
+        lblChecklistHeader: "✅ Attrezzatura",
+        lblHydrationHeader: "💧 Idratazione",
+        lblRemoveRace: "Rimuovi Gara",
+        lblLap: "Parziale",
+        lblMovingTime: "Tempo Attivo:",
+        lblMoving: "Attivo",
+        btnStartRun: "▶ START",
+        btnStartPause: "⏸ PAUSE",
+        btnStartResume: "▶ RIPRENDI",
+        footerText: "TriPulse v1.1 • PWA Ready • Localizzazione Dinamica • GPS Shield Actived",
+        reset: "RESET",
+        finish: "FINE",
+        // Categories for Checklist
+        catSwim: "Nuoto", catBike: "Bici", catRun: "Corsa", catT2: "Transizione",
+        // Lists of items
+        gearWetsuit: "Muta", gearGoggles: "Occhialini", gearCap: "Cuffia", gearChafe: "Crema anti-sfregamento", gearTowel: "Asciugamano", gearFlipflops: "Infradito",
+        gearBike: "Bici", gearHelmet: "Casco", gearShoes: "Scarpe Bici", gearFlatkit: "Kit forature", gearTube: "Camera d'aria", gearPump: "Pompa/CO2", gearGels: "Gel/Carbo", gearBottles: "Borracce idratazione",
+        gearRunShoes: "Scarpe Corsa", gearSocks: "Calze", gearBelt: "Pettorale portanumero", gearRunCap: "Visiera/Cappellino", gearSunglasses: "Occhiali da sole", gearWipes: "Salviette",
+        gearNumber: "Numero gara", gearChip: "Chip cronometraggio", gearSnack: "Snack/Barretta", gearRecShoes: "Scarpe cambio", gearRecovery: "Sacca post-gara",
+        // Plans Translations
+        planBaseMon: "Tecnica", planBaseTue: "Cadenza", planBaseWed: "Lungo facile", planBaseThu: "Intervalli di forza", planBaseFri: "Recupero attivo", planBaseSat: "Corsa progressiva", planBaseSun: "Riposo",
+        planBuildMon: "Soglia", planBuildTue: "3x10 min FTP", planBuildWed: "Fartlek", planBuildThu: "Variazioni ritmo", planBuildFri: "Recupero", planBuildSat: "Lungo qualificato", planBuildSun: "Riposo",
+        planPeakMon: "Velocità", planPeakTue: "VO2Max Intervals", planPeakWed: "Ritmo gara", planPeakThu: "Sgambata fluida", planPeakFri: "Pre-attivazione", planPeakSat: "Combinato (Bici+Corsa)", planPeakSun: "Riposo",
+        planTaperMon: "Scioltezza", planTaperTue: "Richiamo ritmo", planTaperWed: "Corsa leggera", planTaperThu: "Rifinitura", planTaperFri: "Pre-gara", planTaperSat: "🏆 GARA", planTaperSun: "Recupero",
+        // Hydration translations
+        hydrSprint1: "Pre: 500ml acqua", hydrSprint2: "T1: 1 borraccia sali", hydrSprint3: "Km5: 100ml acqua", hydrSprint4: "Km10: 100ml", hydrSprint5: "Fine: Recupero",
+        hydpOly1: "Pre: 600ml + 30g carbo", hydpOly2: "T1: 500ml sali", hydpOly3: "Km5: 150ml + 1 gel", hydpOly4: "Km10: 150ml + 1 gel", hydpOly5: "Km15: 100ml", hydpOly6: "Fine: Recupero idrico",
+        hyd703_1: "Pre: 700ml + 40g carbo", hyd703_2: "Nuoto: Idratazione prima del via", hyd703_3: "T1: 2 borracce carbo/sali", hyd703_4: "Km10: 200ml + 1 gel", hyd703_5: "Km20: 200ml + 1 gel", hyd703_6: "Km30: 200ml + 1 gel", hyd703_7: "Km40: 150ml", hyd703_8: "Km50: 150ml + elettroliti", hyd703_9: "Km60: 100ml", hyd703_10: "Km70: 100ml", hyd703_11: "Km80: 100ml", hyd703_12: "Fine: Recupero strutturato",
+        hydIm1: "Pre: 800ml + 50g carbo", hydIm2: "Nuoto: leggero", hydIm3: "T1: 2 borracce grandi carbo", hydIm4: "T2: idratazione rapida", hydIm5: "Ogni 5km: 150ml + 15g carbo", hydIm6: "Ogni 15km: 200ml + elettroliti", hydIm7: "Fine: Proteine + recupero completo"
+      },
+      en: {
+        appTitle: "TriPulse",
+        langSwitchBtn: "🇮🇹 IT",
+        navTracker: "Tracker",
+        navPlans: "Plans",
+        navRaces: "Races",
+        navHistory: "History",
+        sportSwim: "Swim",
+        sportBike: "Bike",
+        sportRun: "Run",
+        lblDist: "📍 Distance",
+        lblPace: "🏃 Pace",
+        lblTss: "🔥 TSS",
+        lblBpm: "❤️ BPM",
+        lblRpm: "🔄 RPM",
+        lblWatt: "⚡ Watt",
+        lblAutoPause: "Smart Auto-Pause",
+        lblSplits: "📊 Splits",
+        lblPeriodizedPlan: "📅 Periodized Plan",
+        lblNewRace: "🏁 New Race",
+        lblRaceName: "Race Name",
+        lblRaceDate: "Date",
+        lblRaceDistance: "Distance",
+        btnAddRaceBtn: "➕ Add Race",
+        lblWorkoutHistory: "📜 Workout History",
+        lblNoSessions: "No sessions yet.",
+        lblModalTitle: "📖 Quick Guide & Legend",
+        lblModalMetrics: "📊 Key Metrics",
+        helpDist: "📍 Distance",
+        helpDistSub: "GPS tracked km",
+        helpPace: "🏃 Pace",
+        helpPaceSub: "Min/km",
+        helpBpm: "❤️ BPM",
+        helpBpmSub: "Heart rate (BLE)",
+        helpRpm: "🔄 RPM",
+        helpRpmSub: "Pedal cadence",
+        helpWatt: "⚡ Watts",
+        helpWattSub: "Power output",
+        lblModalZones: "🎯 Training Zones",
+        z1Lbl: "Rec",
+        z2Lbl: "End",
+        z3Lbl: "Tempo",
+        z4Lbl: "Thresh",
+        z5Lbl: "Max",
+        lblDontShowAgain: "Don't show again",
+        btnModalClose: "✅ Got it!",
+        lblModalFunctions: "⚙️ Functions",
+        helpTips: "💡 Tips:",
+        btnPhaseBase: "🟢 Base",
+        btnPhaseBuild: "🟡 Build",
+        btnPhasePeak: "🔴 Peak",
+        btnPhaseTaper: "⬜ Taper",
+        toastSaved: "✅ Saved",
+        toastDeleted: "🗑 Deleted",
+        toastExported: "📤 Exported",
+        toastBleConnected: " Connected!",
+        toastBleDisconnected: "📴 Disconnected",
+        toastBleUnsupported: "⚠️ Web Bluetooth not supported (use Chrome)",
+        toastBleFailed: "❌ Connection failed",
+        toastFillFields: "⚠️ Fill name & date",
+        toastAutoPaused: "⏸ Auto-Paused",
+        toastResumed: "▶ Resumed",
+        toastLapSaved: "🏁 Lap saved",
+        lblNoRaces: "No races planned.",
+        countdownDays: "⏳ days",
+        countdownRaceDay: "🏆 RACE DAY!",
+        lblChecklistHeader: "✅ Gear Checklist",
+        lblHydrationHeader: "💧 Hydration Plan",
+        lblRemoveRace: "Remove Race",
+        lblLap: "Lap",
+        lblMovingTime: "Moving:",
+        lblMoving: "Moving",
+        btnStartRun: "▶ START",
+        btnStartPause: "⏸ PAUSE",
+        btnStartResume: "▶ RESUME",
+        footerText: "TriPulse v1.1 • PWA Ready • Offline First • GPS Shield Actived",
+        reset: "RESET",
+        finish: "FINE",
+        // Categories for Checklist
+        catSwim: "Swim", catBike: "Bike", catRun: "Run", catT2: "Transition",
+        // Lists of items
+        gearWetsuit: "Wetsuit", gearGoggles: "Goggles", gearCap: "Cap", gearChafe: "Anti-chafe", gearTowel: "Towel", gearFlipflops: "Flip-flops",
+        gearBike: "Bike", gearHelmet: "Helmet", gearShoes: "Shoes", gearFlatkit: "Flat kit", gearTube: "Tube", gearPump: "Pump", gearGels: "Gels", gearBottles: "Bottles",
+        gearRunShoes: "Shoes", gearSocks: "Socks", gearBelt: "Belt", gearRunCap: "Cap", gearSunglasses: "Sunglasses", gearWipes: "Wipes",
+        gearNumber: "Number", gearChip: "Chip", gearSnack: "Snack", gearRecShoes: "Shoes", gearRecovery: "Recovery",
+        // Plans Translations
+        planBaseMon: "Technique", planBaseTue: "Cadence", planBaseWed: "Easy", planBaseThu: "Intervals", planBaseFri: "Recovery", planBaseSat: "Progressive", planBaseSun: "Rest",
+        planBuildMon: "Threshold", planBuildTue: "3x10 FTP", planBuildWed: "Fartlek", planBuildThu: "Fast", planBuildFri: "Rec", planBuildSat: "Long", planBuildSun: "Rest",
+        planPeakMon: "Sprints", planPeakTue: "VO2Max", planPeakWed: "Tempo", planPeakThu: "Steady", planPeakFri: "Taper", planPeakSat: "Hills", planPeakSun: "Rest",
+        planTaperMon: "Loosen", planTaperTue: "Sharp", planTaperWed: "Light", planTaperThu: "Tech", planTaperFri: "Pre-race", planTaperSat: "🏆 RACE", planTaperSun: "Recovery",
+        // Hydration translations
+        hydrSprint1: "Pre: 500ml water", hydrSprint2: "T1: 1 bottle", hydrSprint3: "Km5: 100ml", hydrSprint4: "Km10: 100ml", hydrSprint5: "Finish: Recovery",
+        hydpOly1: "Pre: 600ml + 30g carbs", hydpOly2: "T1: 500ml", hydpOly3: "Km5: 150ml + 1 gel", hydpOly4: "Km10: 150ml + 1 gel", hydpOly5: "Km15: 100ml", hydpOly6: "Finish: Recovery",
+        hyd703_1: "Pre: 700ml + 40g carbs", hyd703_2: "Swim: Pre-hydrate", hyd703_3: "T1: 2 bottles", hyd703_4: "Km10: 200ml + 1 gel", hyd703_5: "Km20: 200ml + 1 gel", hyd703_6: "Km30: 200ml + 1 gel", hyd703_7: "Km40: 150ml", hyd703_8: "Km50: 150ml + electrolytes", hyd703_9: "Km60: 100ml", hyd703_10: "Km100: 100ml", hyd703_11: "Km80: 100ml", hyd703_12: "Finish: Full recovery",
+        hydIm1: "Pre: 800ml + 50g carbs", hydIm2: "Swim: Light", hydIm3: "T1: 2 large bottles", hydIm4: "T2: Quick refuel", hydIm5: "Every 5km: 150ml + 15g carbs", hydIm6: "Every 15km: 200ml + electrolytes", hydIm7: "Finish: Recovery + protein"
+      }
+    };
+
+    const STORAGE = 'tripulse_v1.1';
     let state = {
+      lang: 'en', // Default English
       sport: 'swim', phase: 'base', completed: {},
-      timer: { running:false, elapsed:0, moving:0, paused:false },
+      timer: { running:false, elapsed:0, moving:0, paused:false, startTime: null, startMovingTime: null, lastPauseOffset: 0, lastMovingPauseOffset: 0 },
       autoPause: true, autoPauseCounter: 0,
       gps: { enabled:false, coords:[], totalDist:0, lastPos:null, speed:0 },
       metrics: { tss:0, currentZone:1, pace:0, maxPace:Infinity },
       laps: [], ble: { connected:false, device:null, bpm:0, rpm:0, watt:0 },
       races: [], history: []
     };
+    
     let timerInt, gpsWatch;
     const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
@@ -300,94 +546,722 @@
 
     function init() {
       const saved = localStorage.getItem(STORAGE);
-      if (saved) { const p = JSON.parse(saved); Object.assign(state, p); state.timer.running=false; state.timer.paused=false; }
-      resizeCanvas(); renderWorkouts(); renderRaces(); renderHistory();
-      window.addEventListener('resize', resizeCanvas); drawRoute(); showTab('tracker');
+      if (saved) { 
+        const parsed = JSON.parse(saved); 
+        Object.assign(state, parsed); 
+        state.timer.running = false; 
+        state.timer.paused = false; 
+      } else {
+        // Detect browser language
+        const systemLang = navigator.language || navigator.userLanguage;
+        state.lang = (systemLang && systemLang.startsWith('it')) ? 'it' : 'en';
+      }
+      
+      applyLanguageUI();
+      resizeCanvas(); 
+      renderWorkouts(); 
+      renderRaces(); 
+      renderHistory();
+      
+      window.addEventListener('resize', resizeCanvas); 
+      drawRoute(); 
+      showTab('tracker');
     }
-    function save() { localStorage.setItem(STORAGE, JSON.stringify(state)); }
-    function toast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
+
+    function save() { 
+      localStorage.setItem(STORAGE, JSON.stringify(state)); 
+    }
+
+    function toast(msgKey, rawString = null) { 
+      const t = document.getElementById('toast'); 
+      t.textContent = rawString ? rawString : i18n[state.lang][msgKey]; 
+      t.classList.add('show'); 
+      setTimeout(() => t.classList.remove('show'), 2000); 
+    }
+
+    // Dynamic translation system
+    function toggleLanguage() {
+      state.lang = state.lang === 'it' ? 'en' : 'it';
+      save();
+      applyLanguageUI();
+      renderWorkouts();
+      renderRaces();
+      renderHistory();
+      updateDisplay();
+      toast('langSwitchBtn', "Language changed / Lingua modificata");
+    }
+
+    function applyLanguageUI() {
+      const dict = i18n[state.lang];
+      document.getElementById('langSwitchBtn').textContent = state.lang === 'it' ? "🇬🇧 EN" : "🇮🇹 IT";
+      
+      // Update DOM items (Keeping SVG Logo intact, translating only the text elements)
+      document.getElementById('appTitle').textContent = dict.appTitle;
+      
+      document.getElementById('navTracker').textContent = dict.navTracker;
+      document.getElementById('navPlans').textContent = dict.navPlans;
+      document.getElementById('navRaces').textContent = dict.navRaces;
+      document.getElementById('navHistory').textContent = dict.navHistory;
+      
+      document.getElementById('sportSwim').textContent = dict.sportSwim;
+      document.getElementById('sportBike').textContent = dict.sportBike;
+      document.getElementById('sportRun').textContent = dict.sportRun;
+      
+      document.getElementById('lblDist').textContent = dict.lblDist;
+      document.getElementById('lblPace').textContent = dict.lblPace;
+      document.getElementById('lblTss').textContent = dict.lblTss;
+      document.getElementById('lblBpm').textContent = dict.lblBpm;
+      document.getElementById('lblRpm').textContent = dict.lblRpm;
+      document.getElementById('lblWatt').textContent = dict.lblWatt;
+      
+      document.getElementById('lblAutoPause').textContent = dict.lblAutoPause;
+      document.getElementById('lblSplits').textContent = dict.lblSplits;
+      document.getElementById('lblPeriodizedPlan').textContent = dict.lblPeriodizedPlan;
+      
+      document.getElementById('btnPhaseBase').textContent = dict.btnPhaseBase;
+      document.getElementById('btnPhaseBuild').textContent = dict.btnPhaseBuild;
+      document.getElementById('btnPhasePeak').textContent = dict.btnPhasePeak;
+      document.getElementById('btnPhaseTaper').textContent = dict.btnPhaseTaper;
+      
+      document.getElementById('lblNewRace').textContent = dict.lblNewRace;
+      document.getElementById('lblRaceName').textContent = dict.lblRaceName;
+      document.getElementById('lblRaceDate').textContent = dict.lblRaceDate;
+      document.getElementById('lblRaceDistance').textContent = dict.lblRaceDistance;
+      document.getElementById('btnAddRaceBtn').textContent = dict.btnAddRaceBtn;
+      
+      document.getElementById('lblWorkoutHistory').textContent = dict.lblWorkoutHistory;
+      
+      // Modal Translation
+      document.getElementById('lblModalTitle').textContent = dict.lblModalTitle;
+      document.getElementById('lblModalMetrics').textContent = dict.lblModalMetrics;
+      document.getElementById('helpDist').textContent = dict.helpDist;
+      document.getElementById('helpDistSub').textContent = dict.helpDistSub;
+      document.getElementById('helpPace').textContent = dict.helpPace;
+      document.getElementById('helpPaceSub').textContent = dict.helpPaceSub;
+      document.getElementById('helpBpm').textContent = dict.helpBpm;
+      document.getElementById('helpBpmSub').textContent = dict.helpBpmSub;
+      document.getElementById('helpRpm').textContent = dict.helpRpm;
+      document.getElementById('helpRpmSub').textContent = dict.helpRpmSub;
+      document.getElementById('helpWatt').textContent = dict.helpWatt;
+      document.getElementById('helpWattSub').textContent = dict.helpWattSub;
+      
+      document.getElementById('lblModalZones').textContent = dict.lblModalZones;
+      document.getElementById('z1Lbl').textContent = dict.z1Lbl;
+      document.getElementById('z2Lbl').textContent = dict.z2Lbl;
+      document.getElementById('z3Lbl').textContent = dict.z3Lbl;
+      document.getElementById('z4Lbl').textContent = dict.z4Lbl;
+      document.getElementById('z5Lbl').textContent = dict.z5Lbl;
+      
+      document.getElementById('lblModalFunctions').textContent = dict.lblModalFunctions;
+      document.getElementById('helpTips').textContent = dict.helpTips;
+      document.getElementById('btnModalClose').textContent = dict.btnModalClose;
+      document.getElementById('lblDontShowAgain').textContent = dict.lblDontShowAgain;
+      
+      document.getElementById('footerText').textContent = dict.footerText;
+      
+      // Dynamic buttons
+      const btn = document.getElementById('btnStart');
+      if (state.timer.running) {
+        btn.textContent = dict.btnStartPause;
+      } else if (state.timer.paused) {
+        btn.textContent = dict.btnStartResume;
+      } else {
+        btn.textContent = dict.btnStartRun;
+      }
+      
+      document.getElementById('btnReset').textContent = "↻ " + dict.reset;
+      document.getElementById('btnFinish').textContent = "✅ " + dict.finish;
+    }
 
     function showTab(tab) {
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
       document.getElementById('tab-'+tab).classList.add('active');
-      document.querySelector(`nav button[onclick="showTab('${tab}')"]`).classList.add('active');
+      document.getElementById('nav'+tab.charAt(0).toUpperCase() + tab.slice(1)+'Btn').classList.add('active');
     }
-    function selectSport(s) { state.sport=s; document.querySelectorAll('.sport-btn').forEach(b=>b.classList.remove('selected')); document.querySelector(`.sport-btn[onclick="selectSport('${s}')"]`).classList.add('selected'); save(); }
-    function setPhase(p) { state.phase=p; document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active')); document.querySelector(`.phase-btn[onclick="setPhase('${p}')"]`).classList.add('active'); renderWorkouts(); save(); }
-    function toggleWorkout(id) { state.completed[id]=!state.completed[id]; renderWorkouts(); save(); }
-    function toggleAutoPause() { state.autoPause=!state.autoPause; document.getElementById('autoPauseToggle').classList.toggle('on', state.autoPause); save(); }
+
+    function selectSport(s) { 
+      state.sport = s; 
+      document.querySelectorAll('.sport-btn').forEach(b=>b.classList.remove('selected')); 
+      document.querySelector(`.sport-btn[onclick="selectSport('${s}')"]`).classList.add('selected'); 
+      save(); 
+    }
+
+    function setPhase(p) { 
+      state.phase = p; 
+      document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active')); 
+      document.querySelector(`.phase-btn[onclick="setPhase('${p}')"]`).classList.add('active'); 
+      renderWorkouts(); 
+      save(); 
+    }
+
+    function toggleWorkout(id) { 
+      state.completed[id] = !state.completed[id]; 
+      renderWorkouts(); 
+      save(); 
+    }
+
+    function toggleAutoPause() { 
+      state.autoPause = !state.autoPause; 
+      document.getElementById('autoPauseToggle').classList.toggle('on', state.autoPause); 
+      save(); 
+    }
 
     async function connectBLE() {
-      if (!navigator.bluetooth) return toast("⚠️ Web Bluetooth not supported (use Chrome)");
+      if (!navigator.bluetooth) return toast("toastBleUnsupported");
       try {
-        const device = await navigator.bluetooth.requestDevice({ filters: [{services:['heart_rate']}, {services:['cycling_speed_and_cadence']}, {services:['cycling_power']}] });
-        state.ble.device = device; document.getElementById('bleDot').classList.add('connected'); toast(" Connected!");
+        const device = await navigator.bluetooth.requestDevice({ 
+          filters: [{services:['heart_rate']}, {services:['cycling_speed_and_cadence']}, {services:['cycling_power']}] 
+        });
+        state.ble.device = device; 
+        document.getElementById('bleDot').classList.add('connected'); 
+        toast("toastBleConnected");
         const server = await device.gatt.connect();
-        try { const hrChar = await (await server.getPrimaryService('heart_rate')).getCharacteristic('heart_rate_measurement'); hrChar.addEventListener('characteristicvaluechanged', e => { const val=e.target.value, flags=val.getUint8(0); state.ble.bpm = flags&1 ? val.getUint16(1,true) : val.getUint8(1); document.getElementById('bpm').textContent=state.ble.bpm; }); await hrChar.startNotifications(); } catch(e){}
-        try { const cscChar = await (await server.getPrimaryService('cycling_speed_and_cadence')).getCharacteristic('csc_measurement'); cscChar.addEventListener('characteristicvaluechanged', e => { if(e.target.value.getUint8(0)&2) state.ble.rpm=e.target.value.getUint16(3,true); document.getElementById('rpm').textContent=state.ble.rpm>0?state.ble.rpm:'--'; }); await cscChar.startNotifications(); } catch(e){}
-        try { const pChar = await (await server.getPrimaryService('cycling_power')).getCharacteristic('cycling_power_measurement'); pChar.addEventListener('characteristicvaluechanged', e => { state.ble.watt=e.target.value.getUint16(0,true); document.getElementById('watt').textContent=state.ble.watt; }); await pChar.startNotifications(); } catch(e){}
-        device.addEventListener('gattserverdisconnected', () => { state.ble.connected=false; state.ble.device=null; document.getElementById('bleDot').classList.remove('connected'); toast("📴 Disconnected"); });
-        state.ble.connected=true;
-      } catch(err) { toast("❌ Connection failed"); }
+        try { 
+          const hrChar = await (await server.getPrimaryService('heart_rate')).getCharacteristic('heart_rate_measurement'); 
+          hrChar.addEventListener('characteristicvaluechanged', e => { 
+            const val = e.target.value, flags = val.getUint8(0); 
+            state.ble.bpm = flags&1 ? val.getUint16(1,true) : val.getUint8(1); 
+            document.getElementById('bpm').textContent = state.ble.bpm; 
+          }); 
+          await hrChar.startNotifications(); 
+        } catch(e){}
+        try { 
+          const cscChar = await (await server.getPrimaryService('cycling_speed_and_cadence')).getCharacteristic('csc_measurement'); 
+          cscChar.addEventListener('characteristicvaluechanged', e => { 
+            if(e.target.value.getUint8(0)&2) state.ble.rpm = e.target.value.getUint16(3,true); 
+            document.getElementById('rpm').textContent = state.ble.rpm>0?state.ble.rpm:'--'; 
+          }); 
+          await cscChar.startNotifications(); 
+        } catch(e){}
+        try { 
+          const pChar = await (await server.getPrimaryService('cycling_power')).getCharacteristic('cycling_power_measurement'); 
+          pChar.addEventListener('characteristicvaluechanged', e => { 
+            state.ble.watt = e.target.value.getUint16(0,true); 
+            document.getElementById('watt').textContent = state.ble.watt; 
+          }); 
+          await pChar.startNotifications(); 
+        } catch(e){}
+        
+        device.addEventListener('gattserverdisconnected', () => { 
+          state.ble.connected = false; 
+          state.ble.device = null; 
+          document.getElementById('bleDot').classList.remove('connected'); 
+          toast("toastBleDisconnected"); 
+        });
+        state.ble.connected = true;
+      } catch(err) { 
+        toast("toastBleFailed"); 
+      }
     }
 
+    // TIMESTAMP ANCHORED CLOCK (Anti-Drift Technology)
     function toggleTimer() {
-      const btn=document.getElementById('btnStart');
-      if(state.timer.running){ clearInterval(timerInt); state.timer.running=false; state.timer.paused=true; btn.textContent='▶ RESUME'; btn.classList.replace('btn-stop','btn-start'); }
-      else { if('wakeLock'in navigator)navigator.wakeLock.request('screen').catch(()=>{}); state.timer.running=true; state.timer.paused=false; btn.textContent='⏸ PAUSE'; btn.classList.replace('btn-start','btn-stop'); document.getElementById('btnLap').disabled=false; document.getElementById('btnFinish').disabled=false; timerInt=setInterval(update,1000); startGPS(); }
-      vibrate(50); save();
+      const btn = document.getElementById('btnStart');
+      const dict = i18n[state.lang];
+      
+      if (state.timer.running) {
+        // Pausing
+        clearInterval(timerInt);
+        state.timer.running = false;
+        state.timer.paused = true;
+        
+        // Save accumulated elapsed time
+        state.timer.lastPauseOffset += Date.now() - state.timer.startTime;
+        state.timer.lastMovingPauseOffset += Date.now() - state.timer.startMovingTime;
+        
+        btn.textContent = dict.btnStartResume;
+        btn.classList.replace('btn-stop','btn-start');
+        
+        if (gpsWatch) {
+          navigator.geolocation.clearWatch(gpsWatch);
+          gpsWatch = null;
+        }
+      } else {
+        // Starting / Resuming
+        if ('wakeLock' in navigator) navigator.wakeLock.request('screen').catch(()=>{});
+        state.timer.running = true;
+        state.timer.paused = false;
+        
+        // Re-anchor start clocks
+        state.timer.startTime = Date.now();
+        state.timer.startMovingTime = Date.now();
+        
+        btn.textContent = "⏸ " + (state.lang === 'it' ? "PAUSA" : "PAUSE");
+        btn.classList.replace('btn-start','btn-stop');
+        document.getElementById('btnLap').disabled = false;
+        document.getElementById('btnFinish').disabled = false;
+        
+        timerInt = setInterval(update, 200); // Higher resolution but calculated with Date.now()
+        startGPS();
+      }
+      vibrate(50); 
+      save();
     }
+
     function resetTimer() {
-      clearInterval(timerInt); state.timer={running:false,elapsed:0,moving:0,paused:false}; state.gps={enabled:false,coords:[],totalDist:0,lastPos:null,speed:0}; state.metrics={tss:0,currentZone:1,pace:0,maxPace:Infinity}; state.laps=[];
-      document.getElementById('btnStart').textContent='▶ START'; document.getElementById('btnStart').classList.replace('btn-stop','btn-start'); document.getElementById('btnLap').disabled=true; document.getElementById('btnFinish').disabled=true; document.getElementById('lapCard').style.display='none';
-      updateDisplay(); resizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height); save();
+      clearInterval(timerInt); 
+      state.timer = { running:false, elapsed:0, moving:0, paused:false, startTime: null, startMovingTime: null, lastPauseOffset:0, lastMovingPauseOffset:0 }; 
+      state.gps = { enabled:false, coords:[], totalDist:0, lastPos:null, speed:0 }; 
+      state.metrics = { tss:0, currentZone:1, pace:0, maxPace:Infinity }; 
+      state.laps = [];
+      
+      const dict = i18n[state.lang];
+      const btn = document.getElementById('btnStart');
+      btn.textContent = dict.btnStartRun;
+      btn.classList.replace('btn-stop','btn-start'); 
+      
+      document.getElementById('btnLap').disabled = true; 
+      document.getElementById('btnFinish').disabled = true; 
+      document.getElementById('lapCard').style.display = 'none';
+      
+      if (gpsWatch) {
+        navigator.geolocation.clearWatch(gpsWatch);
+        gpsWatch = null;
+      }
+      
+      updateDisplay(); 
+      resizeCanvas(); 
+      ctx.clearRect(0,0,canvas.width,canvas.height); 
+      save();
     }
+
     function update() {
-      state.timer.elapsed++;
-      if(state.gps.speed<0.5 && state.autoPause){ state.autoPauseCounter++; if(state.autoPauseCounter>=3 && !state.timer.paused){ state.timer.paused=true; clearInterval(timerInt); state.timer.running=false; document.getElementById('btnStart').textContent='▶ RESUME'; document.getElementById('btnStart').classList.replace('btn-stop','btn-start'); toast("⏸ Auto-Paused"); vibrate([100,50,100]); } }
-      else { state.autoPauseCounter=0; if(state.timer.paused){ state.timer.running=true; state.timer.paused=false; document.getElementById('btnStart').textContent=' PAUSE'; document.getElementById('btnStart').classList.replace('btn-start','btn-stop'); timerInt=setInterval(update,1000); toast("▶ Resumed"); vibrate(50); } }
-      if(!state.timer.paused){ state.timer.moving++; if(state.gps.totalDist>0.005){ const mins=state.timer.moving/60, distKm=state.gps.totalDist/1000; state.metrics.pace=mins/distKm; if(state.metrics.pace<state.metrics.maxPace)state.metrics.maxPace=state.metrics.pace; const intensity=Math.min(1, 3.5/(state.metrics.pace||1)); state.metrics.currentZone=intensity<0.55?1:intensity<0.75?2:intensity<0.85?3:intensity<0.95?4:5; state.metrics.tss+=(intensity**2)*(1/60)*100; } }
+      if (!state.timer.running) return;
+      
+      // Calculate true precise physical elapsed time
+      const trueElapsedMs = (Date.now() - state.timer.startTime) + state.timer.lastPauseOffset;
+      state.timer.elapsed = Math.floor(trueElapsedMs / 1000);
+      
+      // Auto-Pause logic with safety fallback
+      if (state.gps.speed < 0.5 && state.autoPause) { 
+        state.autoPauseCounter++; 
+        if (state.autoPauseCounter >= 15 && !state.timer.paused) { // 3 seconds at 200ms ticks
+          state.timer.paused = true; 
+          state.timer.lastMovingPauseOffset += Date.now() - state.timer.startMovingTime;
+          toast("toastAutoPaused"); 
+          vibrate([100,50,100]); 
+        } 
+      } else { 
+        state.autoPauseCounter = 0; 
+        if (state.timer.paused) { 
+          state.timer.paused = false; 
+          state.timer.startMovingTime = Date.now();
+          toast("toastResumed"); 
+          vibrate(50); 
+        } 
+      }
+      
+      if (!state.timer.paused) { 
+        const trueMovingMs = (Date.now() - state.timer.startMovingTime) + state.timer.lastMovingPauseOffset;
+        state.timer.moving = Math.floor(trueMovingMs / 1000);
+        
+        // Calculate TSS, zones and Pace with Kalman Filtering
+        if (state.gps.totalDist > 5) { 
+          const mins = state.timer.moving / 60;
+          const distKm = state.gps.totalDist / 1000; 
+          state.metrics.pace = mins / distKm; 
+          
+          if (state.metrics.pace < state.metrics.maxPace) {
+            state.metrics.maxPace = state.metrics.pace; 
+          }
+          
+          const intensity = Math.min(1.2, 3.5 / (state.metrics.pace || 1)); 
+          state.metrics.currentZone = intensity < 0.55 ? 1 : intensity < 0.75 ? 2 : intensity < 0.85 ? 3 : intensity < 0.95 ? 4 : 5; 
+          state.metrics.tss += (intensity ** 2) * (1 / 18000) * 100; // Recalculated for high resolution updates
+        } 
+      } 
       updateDisplay();
     }
+
     function updateDisplay() {
-      const fmt=s=>`${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor((s%3600)/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-      document.getElementById('timer').textContent=fmt(state.timer.elapsed);
-      document.getElementById('movingTime').textContent=`Moving: ${fmt(state.timer.moving)}`;
-      document.getElementById('dist').textContent=(state.gps.totalDist/1000).toFixed(3)+' km';
-      if(state.metrics.pace>0&&isFinite(state.metrics.pace)){const pMin=Math.floor(state.metrics.pace),pSec=Math.round((state.metrics.pace-pMin)*60); document.getElementById('pace').textContent=`${pMin}:${String(pSec).padStart(2,'0')}`;} else document.getElementById('pace').textContent='--:--';
-      document.getElementById('tss').textContent=Math.round(state.metrics.tss);
-      document.querySelectorAll('.zone-bar div').forEach((d,i)=>d.classList.toggle('active',i+1===state.metrics.currentZone));
-      document.querySelectorAll('.zone-bar div').forEach((d,i)=>d.style.background=COLORS[i]);
+      const fmt = s => `${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor((s%3600)/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+      document.getElementById('timer').textContent = fmt(state.timer.elapsed);
+      document.getElementById('movingTime').textContent = `${state.lang === 'it' ? 'Tempo Attivo' : 'Moving Time'}: ${fmt(state.timer.moving)}`;
+      document.getElementById('dist').textContent = (state.gps.totalDist / 1000).toFixed(3) + ' km';
+      
+      if (state.metrics.pace > 0 && isFinite(state.metrics.pace)) {
+        const pMin = Math.floor(state.metrics.pace);
+        const pSec = Math.round((state.metrics.pace - pMin) * 60); 
+        document.getElementById('pace').textContent = `${pMin}:${String(pSec).padStart(2,'0')}/km`;
+      } else {
+        document.getElementById('pace').textContent = '--:--';
+      }
+      
+      document.getElementById('tss').textContent = Math.round(state.metrics.tss);
+      document.querySelectorAll('.zone-bar div').forEach((d,i) => d.classList.toggle('active', i+1 === state.metrics.currentZone));
+      document.querySelectorAll('.zone-bar div').forEach((d,i) => d.style.background = COLORS[i]);
     }
 
-    function resizeCanvas(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;drawRoute();}
-    function startGPS(){if(!navigator.geolocation)return;state.gps.enabled=true;gpsWatch=navigator.geolocation.watchPosition(p=>{const{latitude,longitude,speed}=p.coords;state.gps.speed=speed||0;if(state.gps.lastPos){const d=haversine(state.gps.lastPos.lat,state.gps.lastPos.lng,latitude,longitude);if(d<50)state.gps.totalDist+=d;state.gps.coords.push({lat:latitude,lng:longitude});}else state.gps.coords.push({lat:latitude,lng:longitude});state.gps.lastPos={lat:latitude,lng:longitude};drawRoute();},()=>{},{enableHighAccuracy:true,maximumAge:1000});}
-    function haversine(lat1,lon1,lat2,lon2){const R=6371e3,toRad=x=>x*Math.PI/180;const dLat=toRad(lat2-lat1),dLon=toRad(lon2-lon1);const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
-    function drawRoute(){ctx.clearRect(0,0,canvas.width,canvas.height);if(state.gps.coords.length<2)return;const minX=Math.min(...state.gps.coords.map(c=>c.lng)),maxX=Math.max(...state.gps.coords.map(c=>c.lng)),minY=Math.min(...state.gps.coords.map(c=>c.lat)),maxY=Math.max(...state.gps.coords.map(c=>c.lat)),scaleX=canvas.width/(maxX-minX||0.001),scaleY=canvas.height/(maxY-minY||0.001);ctx.strokeStyle='var(--accent)';ctx.lineWidth=2;ctx.lineJoin='round';ctx.beginPath();state.gps.coords.forEach((c,i)=>{const x=(c.lng-minX)*scaleX,y=canvas.height-(c.lat-minY)*scaleY;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();}
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      drawRoute();
+    }
 
-    function addLap(){const lapTime=state.timer.moving,distKm=state.gps.totalDist/1000,pace=distKm>0?(lapTime/60)/distKm:0;state.laps.push({time:lapTime,dist:state.gps.totalDist,pace});state.timer.moving=0;state.timer.elapsed=0;state.gps.totalDist=0;state.gps.coords=[];state.gps.lastPos=null;renderLaps();vibrate([50,30,50]);toast("🏁 Lap saved");drawRoute();ctx.clearRect(0,0,canvas.width,canvas.height);}
-    function renderLaps(){const card=document.getElementById('lapCard'),list=document.getElementById('lapList');if(state.laps.length===0){card.style.display='none';return;}card.style.display='block';list.innerHTML='';state.laps.forEach((l,i)=>{const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;const p=l.pace>0?`${Math.floor(l.pace)}:${String(Math.round((l.pace%1)*60)).padStart(2,'0')}`:'--';list.innerHTML+=`<div class="lap-row"><span>Lap ${i+1}</span><span>⏱ ${fmt(l.time)}</span><span>📏 ${(l.dist/1000).toFixed(2)} km</span><span>🏃 ${p}/km</span></div>`;});}
-    function finishWorkout(){if(!state.timer.running&&!state.timer.paused)return;clearInterval(timerInt);const s={id:Date.now(),date:new Date().toISOString().split('T')[0],sport:state.sport,totalTime:state.timer.elapsed,movingTime:state.timer.moving,dist:state.gps.totalDist/1000,avgPace:state.metrics.pace,maxPace:state.metrics.maxPace,tss:Math.round(state.metrics.tss),laps:state.laps.length,kcal:Math.round(state.nutrition?.weight?state.nutrition.weight*state.timer.moving*0.017*(state.metrics.currentZone*0.2+0.8):200)};state.history.unshift(s);if(state.history.length>50)state.history.pop();save();renderHistory();toast("✅ Workout saved");resetTimer();}
-    function renderHistory(){const l=document.getElementById('historyList');if(state.history.length===0){l.innerHTML='<small style="color:var(--muted)">No workouts yet</small>';return;}l.innerHTML=state.history.map(h=>`<div class="history-item"><div class="history-meta"><strong>${h.date} • ${h.sport.toUpperCase()}</strong><small>${h.dist.toFixed(1)} km • ${Math.round(h.movingTime/60)} min • TSS ${h.tss}</small></div><div class="history-actions"><button class="history-btn" onclick="deleteHistory(${h.id})">🗑</button></div></div>`).join('');}
-    function deleteHistory(id){state.history=state.history.filter(h=>h.id!==id);save();renderHistory();toast("🗑 Deleted");}
-    function exportHistory(){if(state.history.length===0)return toast("⚠️ Empty");const b=new Blob([JSON.stringify(state.history,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`tripulse_history_${Date.now()}.json`;a.click();toast("📤 Exported");}
-    function vibrate(p){if(navigator.vibrate)navigator.vibrate(p);}
+    // ACCURATE GPS DRIFT SHIELD v1.2
+    function startGPS() {
+      if (!navigator.geolocation) return;
+      if (state.sport === 'swim') {
+        // GPS signals do not penetrate water, disable to save battery during Swim
+        return;
+      }
+      
+      state.gps.enabled = true;
+      gpsWatch = navigator.geolocation.watchPosition(p => {
+        const { latitude, longitude, speed, accuracy } = p.coords;
+        
+        // Skip poor accuracy nodes to shield against static drift
+        if (accuracy > 25) return; 
+        
+        state.gps.speed = speed || 0;
+        
+        if (state.gps.lastPos) {
+          const d = haversine(state.gps.lastPos.lat, state.gps.lastPos.lng, latitude, longitude);
+          
+          // Noise shield thresholds: Skip static micro-movements (< 2.5m) and physically impossible teleports (> 40m/s)
+          if (d > 2.5 && d < 40) {
+            state.gps.totalDist += d;
+            state.gps.coords.push({lat: latitude, lng: longitude});
+            state.gps.lastPos = {lat: latitude, lng: longitude};
+            drawRoute();
+          }
+        } else {
+          state.gps.lastPos = {lat: latitude, lng: longitude};
+          state.gps.coords.push({lat: latitude, lng: longitude});
+        }
+      }, () => {}, { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 });
+    }
 
-    const CHECKLISTS={swim:['Wetsuit','Goggles','Cap','Anti-chafe','Towel','Flip-flops'],bike:['Bike','Helmet','Shoes','Flat kit','Tube','Pump','Gels','Bottles'],run:['Shoes','Socks','Belt','Cap','Sunglasses','Wipes'],t2:['Number','Chip','Snack','Shoes','Recovery']};
-    const HYDRO_PLANS={sprint:['Pre: 500ml water','T1: 1 bottle','Km5: 100ml','Km10: 100ml','Finish: Recovery'],olympic:['Pre: 600ml + 30g carbs','T1: 500ml','Km5: 150ml + 1 gel','Km10: 150ml + 1 gel','Km15: 100ml','Finish: Recovery'],'70.3':['Pre: 700ml + 40g carbs','Swim: Pre-hydrate','T1: 2 bottles','Km10: 200ml + 1 gel','Km20: 200ml + 1 gel','Km30: 200ml + 1 gel','Km40: 150ml','Km50: 150ml + electrolytes','Km60: 100ml','Km70: 100ml','Km80: 100ml','Finish: Full recovery'],im:['Pre: 800ml + 50g carbs','Swim: Light','T1: 2 large bottles','T2: Quick refuel','Every 5km: 150ml + 15g carbs','Every 15km: 200ml + electrolytes','Finish: Recovery + protein']};
-    function addRace(){const name=document.getElementById('raceName').value.trim(),date=document.getElementById('raceDate').value,type=document.getElementById('raceType').value;if(!name||!date)return toast("⚠️ Fill name & date");state.races.push({id:Date.now(),name,date,type,checklist:{}});save();renderRaces();toast(" Race added");document.getElementById('raceName').value='';document.getElementById('raceDate').value='';}
-    function renderRaces(){const list=document.getElementById('raceList');if(state.races.length===0){list.innerHTML='<small style="color:var(--muted)">No races planned.</small>';return;}list.innerHTML=state.races.map(r=>{const raceDate=new Date(r.date),now=new Date(),diff=raceDate-now,days=Math.max(0,Math.floor(diff/(1000*60*60*24)));const typeLabel={sprint:'🟢 Sprint',olympic:'🔵 Olympic','70.3':'🟡 70.3',im:'🔴 Ironman'}[r.type];let cHTML='';['swim','bike','run','t2'].forEach(cat=>{CHECKLISTS[cat].forEach(item=>{const checked=r.checklist[item]||false;cHTML+=`<label class="check-item ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleCheck(${r.id},'${item}',this.checked)">${item}</label>`;});});const hHTML=HYDRO_PLANS[r.type].map((h,i)=>`<div class="hydr-step"><span>${i+1}.</span><span>${h}</span></div>`).join('');return`<div class="race-card"><div class="race-header"><div class="race-title">${r.name}</div><div class="race-type">${typeLabel}</div></div><div class="countdown">${days>0?`⏳ ${days} days`:'🏆 RACE DAY!'}</div><h4 style="font-size:0.8rem;color:var(--muted);margin-bottom:6px;">✅ Gear Checklist</h4><div class="checklist">${cHTML}</div><h4 style="font-size:0.8rem;color:var(--muted);margin:8px 0 6px;">💧 Hydration Plan</h4><div class="hydr-timeline">${hHTML}</div><button class="history-btn" style="margin-top:8px;width:100%" onclick="deleteRace(${r.id})"> Remove</button></div>`;}).join('');}
-    function toggleCheck(raceId,item,checked){const r=state.races.find(x=>x.id===raceId);if(r){r.checklist[item]=checked;save();renderRaces();}}
-    function deleteRace(id){state.races=state.races.filter(x=>x.id!==id);save();renderRaces();toast("🗑 Removed");}
+    function haversine(lat1, lon1, lat2, lon2) {
+      const R = 6371e3;
+      const toRad = x => x * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
 
-    const plans={base:[{day:'Mon',sport:'🏊',zone:'Z2',dur:'45m',desc:'Technique'},{day:'Tue',sport:'🚴',zone:'Z2',dur:'60m',desc:'Cadence'},{day:'Wed',sport:'🏃',zone:'Z2',dur:'40m',desc:'Easy'},{day:'Thu',sport:'🏊',zone:'Z3',dur:'50m',desc:'Intervals'},{day:'Fri',sport:'🚴',zone:'Z2',dur:'45m',desc:'Recovery'},{day:'Sat',sport:'🏃',zone:'Z3',dur:'60m',desc:'Progressive'},{day:'Sun',sport:'🛌',zone:'-',dur:'-',desc:'Rest'}],build:[{day:'Mon',sport:'🏊',zone:'Z3',dur:'50m',desc:'Threshold'},{day:'Tue',sport:'',zone:'Z4',dur:'70m',desc:'3x10 FTP'},{day:'Wed',sport:'🏃',zone:'Z3',dur:'50m',desc:'Fartlek'},{day:'Thu',sport:'🏊',zone:'Z4',dur:'55m',desc:'Fast'},{day:'Fri',sport:'🚴',zone:'Z2',dur:'50m',desc:'Rec'},{day:'Sat',sport:'🏃',zone:'Z4',dur:'75m',desc:'Long'},{day:'Sun',sport:'🛌',zone:'-',dur:'-',desc:'Rest'}],peak:[{day:'Mon',sport:'🏊',zone:'Z4',dur:'45m',desc:'Sprints'},{day:'Tue',sport:'🚴',zone:'Z5',dur:'60m',desc:'VO2Max'},{day:'Wed',sport:'🏃',zone:'Z4',dur:'45m',desc:'Tempo'},{day:'Thu',sport:'🏊',zone:'Z3',dur:'40m',desc:'Steady'},{day:'Fri',sport:'🚴',zone:'Z2',dur:'40m',desc:'Taper'},{day:'Sat',sport:'',zone:'Z5',dur:'50m',desc:'Hills'},{day:'Sun',sport:'🛌',zone:'-',dur:'-',desc:'Rest'}],taper:[{day:'Mon',sport:'🏊',zone:'Z2',dur:'30m',desc:'Loosen'},{day:'Tue',sport:'🚴',zone:'Z3',dur:'40m',desc:'Sharp'},{day:'Wed',sport:'',zone:'Z2',dur:'25m',desc:'Light'},{day:'Thu',sport:'🏊',zone:'Z2',dur:'20m',desc:'Tech'},{day:'Fri',sport:'🚴',zone:'Z2',dur:'25m',desc:'Pre-race'},{day:'Sat',sport:'🏁',zone:'-',dur:'-',desc:'🏆 RACE'},{day:'Sun',sport:'',zone:'-',dur:'-',desc:'Recovery'}]};
-    function renderWorkouts(){const l=document.getElementById('workoutList');l.innerHTML='';plans[state.phase].forEach((w,i)=>{const id=`${state.phase}_d${i}`,done=state.completed[id]||false;l.innerHTML+=`<li style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.8rem;"><div><strong>${w.day} • ${w.sport} ${w.zone}</strong><br><small style="color:var(--muted)">${w.dur} • ${w.desc}</small></div><div class="check ${done?'done':''}" onclick="toggleWorkout('${id}')" style="width:20px;height:20px;border:2px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;">${done?'✓':''}</div></li>`;});}
+    function drawRoute() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if (state.gps.coords.length < 2) return;
+      
+      const minX = Math.min(...state.gps.coords.map(c=>c.lng));
+      const maxX = Math.max(...state.gps.coords.map(c=>c.lng));
+      const minY = Math.min(...state.gps.coords.map(c=>c.lat));
+      const maxY = Math.max(...state.gps.coords.map(c=>c.lat));
+      
+      const scaleX = canvas.width / (maxX - minX || 0.001);
+      const scaleY = canvas.height / (maxY - minY || 0.001);
+      
+      ctx.strokeStyle = 'var(--accent)';
+      ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      
+      state.gps.coords.forEach((c,i) => {
+        const x = (c.lng - minX) * scaleX;
+        const y = canvas.height - (c.lat - minY) * scaleY;
+        i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      });
+      ctx.stroke();
+    }
 
-    function showHelp(){document.getElementById('helpModal').classList.add('show');localStorage.setItem('tripulse_help_shown','true');}
-    function closeHelp(){if(document.getElementById('dontShowAgain').checked)localStorage.setItem('tripulse_help_never','true');document.getElementById('helpModal').classList.remove('show');}
+    function addLap() {
+      const lapTime = state.timer.moving;
+      const distKm = state.gps.totalDist / 1000;
+      const pace = distKm > 0 ? (lapTime / 60) / distKm : 0;
+      
+      state.laps.push({ time: lapTime, dist: state.gps.totalDist, pace });
+      
+      // Re-anchor split
+      state.timer.startMovingTime = Date.now();
+      state.timer.lastMovingPauseOffset = 0;
+      state.gps.totalDist = 0;
+      state.gps.coords = [];
+      state.gps.lastPos = null;
+      
+      renderLaps();
+      vibrate([50,30,50]);
+      toast("toastLapSaved");
+      drawRoute();
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
 
-    if('serviceWorker'in navigator){const sw=`const CACHE='tripulse-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/'])));self.skipWaiting();});self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('/')))));`;navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});}
+    function renderLaps() {
+      const card = document.getElementById('lapCard');
+      const list = document.getElementById('lapList');
+      
+      if (state.laps.length === 0) {
+        card.style.display = 'none';
+        return;
+      }
+      
+      card.style.display = 'block';
+      list.innerHTML = '';
+      
+      state.laps.forEach((l, i) => {
+        const fmt = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+        const p = l.pace > 0 ? `${Math.floor(l.pace)}:${String(Math.round((l.pace%1)*60)).padStart(2,'0')}` : '--';
+        list.innerHTML += `
+          <div class="lap-row">
+            <span>${state.lang === 'it' ? 'Giro' : 'Lap'} ${i+1}</span>
+            <span>⏱ ${fmt(l.time)}</span>
+            <span>📏 ${(l.dist/1000).toFixed(2)} km</span>
+            <span>🏃 ${p}/km</span>
+          </div>`;
+      });
+    }
+
+    function finishWorkout() {
+      if (!state.timer.running && !state.timer.paused) return;
+      clearInterval(timerInt);
+      
+      const s = {
+        id: Date.now(),
+        date: new Date().toISOString().split('T')[0],
+        sport: state.sport,
+        totalTime: state.timer.elapsed,
+        movingTime: state.timer.moving,
+        dist: state.gps.totalDist / 1000,
+        avgPace: state.metrics.pace,
+        maxPace: state.metrics.maxPace,
+        tss: Math.round(state.metrics.tss),
+        laps: state.laps.length,
+        kcal: Math.round(state.timer.moving * 0.15 * (state.metrics.currentZone * 0.4 + 0.6)) // Dynamic MET formula
+      };
+      
+      state.history.unshift(s);
+      if (state.history.length > 50) state.history.pop();
+      save();
+      renderHistory();
+      toast("toastSaved");
+      resetTimer();
+    }
+
+    function renderHistory() {
+      const l = document.getElementById('historyList');
+      if (state.history.length === 0) {
+        l.innerHTML = `<small style="color:var(--muted)" id="lblNoSessions">${i18n[state.lang].lblNoSessions}</small>`;
+        return;
+      }
+      
+      l.innerHTML = state.history.map(h => `
+        <div class="history-item">
+          <div class="history-meta">
+            <strong>${h.date} • ${i18n[state.lang]['sport' + h.sport.charAt(0).toUpperCase() + h.sport.slice(1)].toUpperCase()}</strong>
+            <small>${h.dist.toFixed(1)} km • ${Math.round(h.movingTime/60)} min • TSS ${h.tss}</small>
+          </div>
+          <div class="history-actions">
+            <button class="history-btn" onclick="deleteHistory(${h.id})">🗑</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function deleteHistory(id) {
+      state.history = state.history.filter(h => h.id !== id);
+      save();
+      renderHistory();
+      toast("toastDeleted");
+    }
+
+    function exportHistory() {
+      if (state.history.length === 0) return;
+      const b = new Blob([JSON.stringify(state.history,null,2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = `tripulse_history_${Date.now()}.json`;
+      a.click();
+      toast("toastExported");
+    }
+
+    function vibrate(p) {
+      if (navigator.vibrate) navigator.vibrate(p);
+    }
+
+    // Comprehensive Checklist and Hydration Dictionary Matching System
+    const CHECKLISTS = {
+      swim: ['gearWetsuit', 'gearGoggles', 'gearCap', 'gearChafe', 'gearTowel', 'gearFlipflops'],
+      bike: ['gearBike', 'gearHelmet', 'gearShoes', 'gearFlatkit', 'gearTube', 'gearPump', 'gearGels', 'gearBottles'],
+      run: ['gearRunShoes', 'gearSocks', 'gearBelt', 'gearRunCap', 'gearSunglasses', 'gearWipes'],
+      t2: ['gearNumber', 'gearChip', 'gearSnack', 'gearRecShoes', 'gearRecovery']
+    };
+
+    const HYDRO_PLANS = {
+      sprint: ['hydrSprint1', 'hydrSprint2', 'hydrSprint3', 'hydrSprint4', 'hydrSprint5'],
+      olympic: ['hydpOly1', 'hydpOly2', 'hydpOly3', 'hydpOly4', 'hydpOly5', 'hydpOly6'],
+      '70.3': ['hyd703_1', 'hyd703_2', 'hyd703_3', 'hyd703_4', 'hyd703_5', 'hyd703_6', 'hyd703_7', 'hyd703_8', 'hyd703_9', 'hyd703_10', 'hyd703_11', 'hyd703_12'],
+      im: ['hydIm1', 'hydIm2', 'hydIm3', 'hydIm4', 'hydIm5', 'hydIm6', 'hydIm7']
+    };
+
+    function addRace() {
+      const name = document.getElementById('raceName').value.trim();
+      const date = document.getElementById('raceDate').value;
+      const type = document.getElementById('raceType').value;
+      
+      if (!name || !date) return toast("toastFillFields");
+      
+      state.races.push({ id: Date.now(), name, date, type, checklist: {} });
+      save();
+      renderRaces();
+      toast("toastSaved");
+      document.getElementById('raceName').value = '';
+      document.getElementById('raceDate').value = '';
+    }
+
+    function renderRaces() {
+      const list = document.getElementById('raceList');
+      const dict = i18n[state.lang];
+      
+      if (state.races.length === 0) {
+        list.innerHTML = `<small style="color:var(--muted)">${dict.lblNoRaces}</small>`;
+        return;
+      }
+      
+      list.innerHTML = state.races.map(r => {
+        const raceDate = new Date(r.date);
+        const now = new Date();
+        const diff = raceDate - now;
+        const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+        
+        const typeLabel = { sprint: '🟢 Sprint', olympic: '🔵 Olympic', '70.3': '🟡 70.3', im: '🔴 Ironman' }[r.type];
+        
+        let cHTML = '';
+        ['swim', 'bike', 'run', 't2'].forEach(cat => {
+          cHTML += `<div style="grid-column: 1 / -1; font-weight: bold; font-size: 0.75rem; color: var(--accent); margin-top: 4px;">${dict['cat' + cat.charAt(0).toUpperCase() + cat.slice(1)]}</div>`;
+          CHECKLISTS[cat].forEach(itemKey => {
+            const checked = r.checklist[itemKey] || false;
+            cHTML += `
+              <label class="check-item ${checked ? 'done' : ''}">
+                <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleCheck(${r.id},'${itemKey}',this.checked)">
+                ${dict[itemKey]}
+              </label>`;
+          });
+        });
+        
+        const hHTML = HYDRO_PLANS[r.type].map((hk, i) => `
+          <div class="hydr-step">
+            <span>${i + 1}.</span>
+            <span>${dict[hk]}</span>
+          </div>`).join('');
+          
+        return `
+          <div class="race-card">
+            <div class="race-header">
+              <div class="race-title">${r.name}</div>
+              <div class="race-type">${typeLabel}</div>
+            </div>
+            <div class="countdown">${days > 0 ? `⏳ ${days} ${dict.countdownDays}` : dict.countdownRaceDay}</div>
+            <h4 style="font-size:0.8rem;color:var(--muted);margin-bottom:6px;">${dict.lblChecklistHeader}</h4>
+            <div class="checklist">${cHTML}</div>
+            <h4 style="font-size:0.8rem;color:var(--muted);margin:8px 0 6px;">${dict.lblHydrationHeader}</h4>
+            <div class="hydr-timeline">${hHTML}</div>
+            <button class="history-btn" style="margin-top:8px;width:100%;background:rgba(255, 77, 106, 0.15);color:var(--danger)" onclick="deleteRace(${r.id})">${dict.lblRemoveRace}</button>
+          </div>`;
+      }).join('');
+    }
+
+    function toggleCheck(raceId, itemKey, checked) {
+      const r = state.races.find(x => x.id === raceId);
+      if (r) {
+        r.checklist[itemKey] = checked;
+        save();
+        renderRaces();
+      }
+    }
+
+    function deleteRace(id) {
+      state.races = state.races.filter(x => x.id !== id);
+      save();
+      renderRaces();
+      toast("toastDeleted");
+    }
+
+    // Training Plan Translations Anchor Matching
+    const plans = {
+      base: [
+        { day: 'Mon', sport: '🏊', zone: 'Z2', dur: '45m', descKey: 'planBaseMon' },
+        { day: 'Tue', sport: '🚴', zone: 'Z2', dur: '60m', descKey: 'planBaseTue' },
+        { day: 'Wed', sport: '🏃', zone: 'Z2', dur: '40m', descKey: 'planBaseWed' },
+        { day: 'Thu', sport: '🏊', zone: 'Z3', dur: '50m', descKey: 'planBaseThu' },
+        { day: 'Fri', sport: '🚴', zone: 'Z2', dur: '45m', descKey: 'planBaseFri' },
+        { day: 'Sat', sport: '🏃', zone: 'Z3', dur: '60m', descKey: 'planBaseSat' },
+        { day: 'Sun', sport: '🛌', zone: '-',  dur: '-',   descKey: 'planBaseSun' }
+      ],
+      build: [
+        { day: 'Mon', sport: '🏊', zone: 'Z3', dur: '50m', descKey: 'planBuildMon' },
+        { day: 'Tue', sport: '🚴', zone: 'Z4', dur: '70m', descKey: 'planBuildTue' },
+        { day: 'Wed', sport: '🏃', zone: 'Z3', dur: '50m', descKey: 'planBuildWed' },
+        { day: 'Thu', sport: '🏊', zone: 'Z4', dur: '55m', descKey: 'planBuildThu' },
+        { day: 'Fri', sport: '🚴', zone: 'Z2', dur: '50m', descKey: 'planBuildFri' },
+        { day: 'Sat', sport: '🏃', zone: 'Z4', dur: '75m', descKey: 'planBuildSat' },
+        { day: 'Sun', sport: '🛌', zone: '-',  dur: '-',   descKey: 'planBuildSun' }
+      ],
+      peak: [
+        { day: 'Mon', sport: '🏊', zone: 'Z4', dur: '45m', descKey: 'planPeakMon' },
+        { day: 'Tue', sport: '🚴', zone: 'Z5', dur: '60m', descKey: 'planPeakTue' },
+        { day: 'Wed', sport: '🏃', zone: 'Z4', dur: '45m', descKey: 'planPeakWed' },
+        { day: 'Thu', sport: '🏊', zone: 'Z3', dur: '40m', descKey: 'planPeakThu' },
+        { day: 'Fri', sport: '🚴', zone: 'Z2', dur: '40m', descKey: 'planPeakFri' },
+        { day: 'Sat', sport: '🏃', zone: 'Z5', dur: '50m', descKey: 'planPeakSat' },
+        { day: 'Sun', sport: '🛌', zone: '-',  dur: '-',   descKey: 'planPeakSun' }
+      ],
+      taper: [
+        { day: 'Mon', sport: '🏊', zone: 'Z2', dur: '30m', descKey: 'planTaperMon' },
+        { day: 'Tue', sport: '🚴', zone: 'Z3', dur: '40m', descKey: 'planTaperTue' },
+        { day: 'Wed', sport: '🏃', zone: 'Z2', dur: '25m', descKey: 'planTaperWed' },
+        { day: 'Thu', sport: '🏊', zone: 'Z2', dur: '20m', descKey: 'planTaperThu' },
+        { day: 'Fri', sport: '🚴', zone: 'Z2', dur: '25m', descKey: 'planTaperFri' },
+        { day: 'Sat', sport: '🏁', zone: '-',  dur: '-',   descKey: 'planTaperSat' },
+        { day: 'Sun', sport: '🛌', zone: '-',  dur: '-',   descKey: 'planTaperSun' }
+      ]
+    };
+
+    function renderWorkouts() {
+      const l = document.getElementById('workoutList');
+      l.innerHTML = '';
+      const dict = i18n[state.lang];
+      
+      plans[state.phase].forEach((w, i) => {
+        const id = `${state.phase}_d${i}`;
+        const done = state.completed[id] || false;
+        
+        l.innerHTML += `
+          <li style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
+            <div>
+              <strong>${w.day} • ${w.sport} ${w.zone}</strong><br>
+              <small style="color:var(--muted)">${w.dur} • ${dict[w.descKey]}</small>
+            </div>
+            <div class="check ${done ? 'done' : ''}" onclick="toggleWorkout('${id}')" style="width:20px;height:20px;border:2px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+              ${done ? '✓' : ''}
+            </div>
+          </li>`;
+      });
+    }
+
+    function showHelp() {
+      document.getElementById('helpModal').classList.add('show');
+      localStorage.setItem('tripulse_help_shown', 'true');
+    }
+
+    function closeHelp() {
+      if (document.getElementById('dontShowAgain').checked) {
+        localStorage.setItem('tripulse_help_never', 'true');
+      }
+      document.getElementById('helpModal').classList.remove('show');
+    }
+
+    if ('serviceWorker' in navigator) {
+      const sw = `
+        const CACHE='tripulse-v1.1';
+        self.addEventListener('install',e=>{
+          e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/'])));
+          self.skipWaiting();
+        });
+        self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
+        self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('/')))));`;
+      navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
+    }
   </script>
 </body>
 </html>
