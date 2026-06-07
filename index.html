@@ -744,35 +744,130 @@
   <div class="toast" id="toast">Salvato</div>
   <footer id="footerText">AQUACORE.AI · ACore Triathlete · PWA</footer>
 
+  <!-- ── LOGIN OVERLAY ── -->
+  <div id="loginOverlay" style="
+    display:none;
+    position:fixed;inset:0;z-index:9999;
+    background:#04060a;
+    flex-direction:column;align-items:center;justify-content:center;
+    font-family:'Syne',sans-serif;
+  ">
+    <div style="
+      background:#0c1520;
+      border:1px solid rgba(255,107,53,0.25);
+      border-radius:18px;
+      padding:40px 32px 36px;
+      max-width:340px;width:90%;
+      display:flex;flex-direction:column;align-items:center;gap:24px;
+      box-shadow:0 0 60px rgba(255,107,53,0.08);
+    ">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div style="
+          width:48px;height:48px;border-radius:14px;
+          background:rgba(255,107,53,0.1);
+          border:1px solid rgba(255,107,53,0.25);
+          display:flex;align-items:center;justify-content:center;
+        ">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12 Q6 6, 12 4 Q18 6, 21 12 Q18 18, 12 20 Q6 18, 3 12Z" stroke="#ff6b35" stroke-width="1.6" fill="none"/>
+            <circle cx="12" cy="12" r="3" fill="#ff6b35"/>
+          </svg>
+        </div>
+        <div style="color:#f0f6ff;font-size:1.15rem;font-weight:800;letter-spacing:0.02em;">ACore Triathlete</div>
+        <div style="color:#7a9ab8;font-size:0.78rem;letter-spacing:0.08em;">AQUACORE.AI</div>
+      </div>
+      <div style="color:#7a9ab8;font-size:0.85rem;text-align:center;line-height:1.5;">
+        Accedi per continuare
+      </div>
+      <button id="loginGoogleBtn" onclick="loginWithGoogle()" style="
+        width:100%;padding:13px 20px;
+        background:rgba(255,107,53,0.08);
+        border:1px solid rgba(255,107,53,0.3);
+        border-radius:10px;
+        color:#f0f6ff;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;
+        cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+        transition:background 0.2s,border-color 0.2s;
+      " onmouseover="this.style.background='rgba(255,107,53,0.15)';this.style.borderColor='rgba(255,107,53,0.55)'"
+         onmouseout="this.style.background='rgba(255,107,53,0.08)';this.style.borderColor='rgba(255,107,53,0.3)'">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Sign in with Google
+      </button>
+      <div id="loginError" style="display:none;color:#ff6b35;font-size:0.8rem;text-align:center;"></div>
+      <div style="color:#3d5470;font-size:0.72rem;text-align:center;line-height:1.5;">
+        Accedendo accetti i Termini di servizio<br>e la Privacy Policy di AQUACORE.AI
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ── AQUACORE.AI Auth Guard + Pro Status ──
-    window.__acoreIsPro = false; // default sicuro
-    (async function() {
-      const SB_URL = 'https://vqfzywjiyzpwhzqwixex.supabase.co';
-      const SB_KEY = 'sb_publishable_GnNyFpSAurKKp6sOl9xc6w_zXCHGa9m';
-      const LOGIN_URL = 'https://getaquacore.com/login';
+    // ── AQUACORE.AI Auth Guard integrato ──
+    window.__acoreIsPro = false;
+    window.__sb = null;
+
+    const SB_URL = 'https://vqfzywjiyzpwhzqwixex.supabase.co';
+    const SB_KEY = 'sb_publishable_GnNyFpSAurKKp6sOl9xc6w_zXCHGa9m';
+
+    function showLoginOverlay() {
+      const el = document.getElementById('loginOverlay');
+      el.style.display = 'flex';
+    }
+
+    function hideLoginOverlay() {
+      const el = document.getElementById('loginOverlay');
+      el.style.display = 'none';
+    }
+
+    async function loadProfile(sb, userId) {
+      const { data: profile } = await sb
+        .from('profiles')
+        .select('is_pro, pro_apps, pro_expires_at')
+        .eq('id', userId)
+        .single();
+      if (profile) {
+        const notExpired = !profile.pro_expires_at || new Date(profile.pro_expires_at) > new Date();
+        window.__acoreIsPro = profile.is_pro && notExpired;
+      }
+    }
+
+    async function loginWithGoogle() {
+      const btn = document.getElementById('loginGoogleBtn');
+      const errEl = document.getElementById('loginError');
+      btn.disabled = true;
+      btn.textContent = 'Attendere…';
+      errEl.style.display = 'none';
       try {
-        const sb = window.supabase.createClient(SB_URL, SB_KEY, {
+        await window.__sb.auth.signInWithOAuth({
+          provider: 'google',
+          options: { redirectTo: window.location.href }
+        });
+      } catch(e) {
+        errEl.textContent = 'Errore durante il login. Riprova.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Sign in with Google';
+      }
+    }
+
+    (async function() {
+      try {
+        window.__sb = window.supabase.createClient(SB_URL, SB_KEY, {
           auth: {
             storageKey: 'aquacore-auth',
             storage: window.localStorage
           }
         });
-        const { data: { session } } = await sb.auth.getSession();
+        const { data: { session } } = await window.__sb.auth.getSession();
         if (!session) {
-          localStorage.setItem('acore_pending_app', 'triathlete');
-          window.location.replace(LOGIN_URL);
+          showLoginOverlay();
+          window.__sb.auth.onAuthStateChange(async (event, newSession) => {
+            if (event === 'SIGNED_IN' && newSession) {
+              await loadProfile(window.__sb, newSession.user.id);
+              hideLoginOverlay();
+            }
+          });
           return;
         }
-        const { data: profile } = await sb
-          .from('profiles')
-          .select('is_pro, pro_apps, pro_expires_at')
-          .eq('id', session.user.id)
-          .single();
-        if (profile) {
-          const notExpired = !profile.pro_expires_at || new Date(profile.pro_expires_at) > new Date();
-          window.__acoreIsPro = profile.is_pro && notExpired;
-        }
+        await loadProfile(window.__sb, session.user.id);
       } catch(e) {
         console.warn('[ACore Triathlete] Auth guard skipped (offline?):', e);
       }
