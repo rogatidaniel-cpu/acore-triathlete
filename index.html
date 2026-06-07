@@ -752,7 +752,12 @@
       const SB_KEY = 'sb_publishable_GnNyFpSAurKKp6sOl9xc6w_zXCHGa9m';
       const LOGIN_URL = 'https://getaquacore.com/login';
       try {
-        const sb = window.supabase.createClient(SB_URL, SB_KEY);
+        const sb = window.supabase.createClient(SB_URL, SB_KEY, {
+          auth: {
+            storageKey: 'aquacore-auth',
+            storage: window.localStorage
+          }
+        });
         const { data: { session } } = await sb.auth.getSession();
         if (!session) {
           localStorage.setItem('acore_pending_app', 'triathlete');
