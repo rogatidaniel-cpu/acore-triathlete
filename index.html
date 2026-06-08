@@ -800,6 +800,21 @@
   </div>
 
   <script>
+  (async function() {
+    const params = new URLSearchParams(window.location.search);
+    const rt = params.get('sb_refresh');
+    if (rt) {
+      const SB_URL = 'https://vqfzywjiyzpwhzqwixex.supabase.co';
+      const SB_KEY = 'sb_publishable_GnNyFpSAurKKp6sOl9xc6w_zXCHGa9m';
+      const sb = window.supabase.createClient(SB_URL, SB_KEY, {
+        auth: { storageKey: 'aquacore-auth', storage: window.localStorage }
+      });
+      await sb.auth.refreshSession({ refresh_token: decodeURIComponent(rt) });
+      const clean = window.location.pathname;
+      window.history.replaceState({}, '', clean);
+    }
+  })();
+
     // ── AQUACORE.AI Auth Guard integrato ──
     window.__acoreIsPro = false;
     window.__sb = null;
