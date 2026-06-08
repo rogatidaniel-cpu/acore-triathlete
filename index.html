@@ -851,6 +851,7 @@
       btn.textContent = 'Attendere…';
       errEl.style.display = 'none';
       try {
+        localStorage.setItem('acore_pending_app', 'triathlete');
         await window.__sb.auth.signInWithOAuth({
           provider: 'google',
           options: { redirectTo: window.location.href }
