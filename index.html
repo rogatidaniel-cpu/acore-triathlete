@@ -854,7 +854,7 @@
         localStorage.setItem('acore_pending_app', 'triathlete');
         await window.__sb.auth.signInWithOAuth({
           provider: 'google',
-          options: { redirectTo: window.location.href }
+          options: { redirectTo: 'https://triathlete.getaquacore.com' }
         });
       } catch(e) {
         errEl.textContent = 'Errore durante il login. Riprova.';
